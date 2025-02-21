@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Danh sách tài khoản</title>
+</head>
+<body>
+<h1>Danh sách tài khoản</h1>
+<table border="1">
+    <tr>
+        <th>Số tài khoản</th>
+        <th>Chủ tài khoản</th>
+        <th>Số dư</th>
+    </tr>
+    <tr th:each="account : ${accounts}">
+        <td th:text="${account.accountNumber}"></td>
+        <td th:text="${account.nameAccount}"></td>
+        <td th:text="${account.balance}"></td>
+    </tr>
+</table>
+</body>
+</html>

@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Dashboard</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+<div class="container mt-5">
+    <h1 class="text-center">Xin chào, <span th:text="${account.nameAccount}"></span></h1>
+    <div class="card mt-4">
+        <div class="card-body">
+            <h5 class="card-title">Thông tin tài khoản</h5>
+            <p><strong>Số tài khoản:</strong> <span th:text="${account.accountNumber}"></span></p>
+            <p><strong>Số dư:</strong> <span th:text="${account.balance}"></span> VND</p>
+        </div>
+    </div>
+
+    <div class="row mt-4">
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Nạp tiền</h5>
+                    <form action="/transaction/deposit" method="post">
+                        <input type="hidden" name="accountNumber" th:value="${account.accountNumber}">
+                        <div class="mb-3">
+                            <label for="amount" class="form-label">Số tiền:</label>
+                            <input type="number" id="amount" name="amount" class="form-control" required>
+                        </div>
+                        <button type="submit" class="btn btn-success w-100">Nạp</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Rút tiền</h5>
+                    <form action="/transaction/withdraw" method="post">
+                        <input type="hidden" name="accountNumber" th:value="${account.accountNumber}">
+                        <div class="mb-3">
+                            <label for="amountWithdraw" class="form-label">Số tiền:</label>
+                            <input type="number" id="amountWithdraw" name="amount" class="form-control" required>
+                        </div>
+                        <button type="submit" class="btn btn-danger w-100">Rút</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Chuyển tiền</h5>
+                    <form action="/transaction/transfer" method="post">
+                        <input type="hidden" name="fromAccountNumber" th:value="${account.accountNumber}">
+                        <div class="mb-3">
+                            <label for="toAccountNumber" class="form-label">Số tài khoản nhận:</label>
+                            <input type="text" id="toAccountNumber" name="toAccountNumber" class="form-control" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="transferAmount" class="form-label">Số tiền:</label>
+                            <input type="number" id="transferAmount" name="amount" class="form-control" required>
+                        </div>
+                        <button type="submit" class="btn btn-primary w-100">Chuyển</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="text-center mt-4">
+        <a th:href="@{/transaction/{accountNumber}(accountNumber=${account.accountNumber})}" class="btn btn-secondary">Xem lịch sử giao dịch</a>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
